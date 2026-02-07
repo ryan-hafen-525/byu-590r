@@ -1,5 +1,4 @@
 .PHONY: start start-dev start-prod stop clean build-frontend build-backend setup-backend migrate aws-deploy aws-status aws-logs aws-cleanup aws-manifests setup_infrastructure
-
 # Start all services
 start:
 	@echo "Starting BYU 590R Monorepo..."

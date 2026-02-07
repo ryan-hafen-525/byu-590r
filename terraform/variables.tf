@@ -69,7 +69,7 @@ variable "github_token" {
   description = "GitHub PAT with repo Secrets write; used only to update GitHub Actions secrets (EC2_HOST, S3_BUCKET, etc.). Leave empty to skip."
   type        = string
   sensitive   = true
-  default     = ""
+  default     = "thisisasecret"
 }
 
 variable "github_repository" {
