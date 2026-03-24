@@ -38,7 +38,7 @@ test.describe("Deployment Verification", () => {
 		});
 	});
 
-	test('Frontend login page should have "Login Here" text', async ({
+	test('Frontend login page should have "Login" text', async ({
 		page,
 	}: {
 		page: Page;
@@ -49,16 +49,14 @@ test.describe("Deployment Verification", () => {
 		// Wait for the page to load
 		await page.waitForLoadState("networkidle");
 
-		// Check for "Login Here" text - it appears in both the title and button
-		// Use a more specific locator to avoid strict mode violation (multiple matches)
-		// Check for the card title specifically
-		const loginHereTitle = page
+		// Check for "Login" text in the card title
+		const loginTitle = page
 			.locator("mat-card-title")
-			.getByText("Login Here", { exact: true });
-		await expect(loginHereTitle).toBeVisible({ timeout: 10000 });
+			.getByText("Login", { exact: true });
+		await expect(loginTitle).toBeVisible({ timeout: 10000 });
 
-		// Also check for the button with "Login Here" text
-		const loginButton = page.getByRole("button", { name: "Login Here" });
+		// Also check for the button with "Login" text
+		const loginButton = page.getByRole("button", { name: "Login" });
 		await expect(loginButton).toBeVisible({ timeout: 10000 });
 
 		// Verify login form elements are present
