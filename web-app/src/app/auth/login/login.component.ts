@@ -73,7 +73,8 @@ export class LoginComponent implements AfterViewInit {
 
     this.registerForm = this.fb.group(
       {
-        name: ['', [Validators.required, Validators.minLength(3)]],
+        first_name: ['', [Validators.required, Validators.minLength(1)]],
+        last_name: ['', [Validators.required, Validators.minLength(1)]],
         email: [
           '',
           [Validators.required, Validators.minLength(3), Validators.email],

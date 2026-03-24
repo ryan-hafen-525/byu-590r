@@ -20,5 +20,11 @@ export const routes: Routes = [
       import('./books/books.component').then((m) => m.BooksComponent),
     canActivate: [authGuard],
   },
+  {
+    path: 'movies',
+    loadComponent: () =>
+      import('./movies/movies.component').then((m) => m.MoviesComponent),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '/login' },
 ];

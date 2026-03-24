@@ -1,0 +1,27 @@
+<div class="movies-container">
+  <h2>My Favorite Movies</h2>
+  <table class="movies-table">
+    <thead>
+      <tr>
+        <th>Poster</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (movie of movies(); track movie.id) {
+      <tr>
+        <td class="poster-cell">
+          @if (movie.movie_picture) {
+          <img [src]="movie.movie_picture" [alt]="movie.name" class="movie-poster" />
+          } @else {
+          <mat-icon class="no-poster-icon">movie</mat-icon>
+          }
+        </td>
+        <td class="name-cell">{{ movie.name }}</td>
+        <td class="description-cell">{{ movie.description }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -18,7 +18,8 @@ class RegisterController extends BaseController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:1',
+            'first_name' => 'required|min:1',
+            'last_name' => 'required|min:1',
             'email' => 'required|email|unique:users,email|min:3',
             'password' => 'required|min:8',
             'c_password' => 'required|same:password|min:8',
@@ -29,6 +30,7 @@ class RegisterController extends BaseController
         }
 
         $input = $request->all();
+        $input['name'] = $input['first_name'] . ' ' . $input['last_name'];
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $token = $user->createToken('MyApp');

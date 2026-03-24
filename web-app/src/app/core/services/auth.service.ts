@@ -9,7 +9,8 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   c_password: string;
@@ -38,8 +39,10 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    localStorage.removeItem('user');
+  logout(): Observable<any> {
+    const user = this.getStoredUser();
+    const headers: Record<string, string> = user ? { Authorization: `Bearer ${user.token}` } : {};
+    return this.http.post(`${this.apiUrl}logout`, {}, { headers });
   }
 
   register(user: RegisterRequest): Observable<any> {

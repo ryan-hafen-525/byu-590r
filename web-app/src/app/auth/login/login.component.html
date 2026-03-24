@@ -100,8 +100,12 @@
           <mat-card-content>
             <form [formGroup]="registerForm">
               <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Full name*</mat-label>
-                <input matInput type="text" formControlName="name" />
+                <mat-label>First Name*</mat-label>
+                <input matInput type="text" formControlName="first_name" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Last Name*</mat-label>
+                <input matInput type="text" formControlName="last_name" />
               </mat-form-field>
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Email*</mat-label>

@@ -41,10 +41,22 @@ export const AuthStore = signalStore(
       });
     },
     logout(): void {
-      authService.logout();
-      patchState(store, {
-        loggedIn: false,
-        user: null,
+      authService.logout().subscribe({
+        next: () => {
+          localStorage.removeItem('user');
+          patchState(store, {
+            loggedIn: false,
+            user: null,
+          });
+        },
+        error: () => {
+          // Even if API call fails, clear local state
+          localStorage.removeItem('user');
+          patchState(store, {
+            loggedIn: false,
+            user: null,
+          });
+        },
       });
     },
     updateAvatar(avatar: string | null): void {
