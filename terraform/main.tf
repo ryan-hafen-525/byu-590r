@@ -133,15 +133,22 @@ sudo a2enmod rewrite
 sudo a2enmod headers
 sudo a2enmod ssl
 
-# Create virtual hosts with port-based routing
-sudo tee /etc/apache2/sites-available/byu-590r-backend.conf > /dev/null << 'APACHE_BACKEND_EOF'
-<VirtualHost *:4444>
+# Create single virtual host with path-based routing
+sudo tee /etc/apache2/sites-available/byu-590r.conf > /dev/null << 'APACHE_CONF_EOF'
+<VirtualHost *:80>
     ServerName movies.ryanhafen.dev
-    DocumentRoot /var/www/html/api/public
+    Redirect permanent / https://movies.ryanhafen.dev/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName movies.ryanhafen.dev
 
     SSLEngine on
     SSLCertificateFile    /etc/ssl/cloudflare-origin.pem
     SSLCertificateKeyFile /etc/ssl/cloudflare-origin-key.pem
+
+    # Serve Laravel API at /api
+    Alias /api /var/www/html/api/public
 
     <Directory /var/www/html/api/public>
         AllowOverride All
@@ -153,56 +160,37 @@ sudo tee /etc/apache2/sites-available/byu-590r-backend.conf > /dev/null << 'APAC
         RewriteCond %%{REQUEST_FILENAME} !-d
         RewriteRule ^(.*)$ index.php [QSA,L]
 
-        # Set index files
         DirectoryIndex index.php index.html
     </Directory>
 
-    ErrorLog $${APACHE_LOG_DIR}/byu590r_backend_error.log
-    CustomLog $${APACHE_LOG_DIR}/byu590r_backend_access.log combined
-</VirtualHost>
-APACHE_BACKEND_EOF
-
-sudo tee /etc/apache2/sites-available/byu-590r-frontend.conf > /dev/null << 'APACHE_FRONTEND_EOF'
-<VirtualHost *:80>
-    ServerName movies.ryanhafen.dev
-    Redirect permanent / https://movies.ryanhafen.dev/
-</VirtualHost>
-
-<VirtualHost *:443>
-    ServerName movies.ryanhafen.dev
+    # Serve Angular frontend at /
     DocumentRoot /var/www/html/app/browser
-
-    SSLEngine on
-    SSLCertificateFile    /etc/ssl/cloudflare-origin.pem
-    SSLCertificateKeyFile /etc/ssl/cloudflare-origin-key.pem
 
     <Directory /var/www/html/app/browser>
         AllowOverride All
         Require all granted
 
-        # Angular routing support
+        # Angular routing support (skip /api paths)
         RewriteEngine On
         RewriteRule ^index\.html$ - [L]
+        RewriteCond %%{REQUEST_URI} !^/api
         RewriteCond %%{REQUEST_FILENAME} !-f
         RewriteCond %%{REQUEST_FILENAME} !-d
         RewriteRule . /index.html [L]
 
-        # Set index files
         DirectoryIndex index.html
     </Directory>
 
-    ErrorLog $${APACHE_LOG_DIR}/byu590r_frontend_error.log
-    CustomLog $${APACHE_LOG_DIR}/byu590r_frontend_access.log combined
+    ErrorLog $${APACHE_LOG_DIR}/byu590r_error.log
+    CustomLog $${APACHE_LOG_DIR}/byu590r_access.log combined
 </VirtualHost>
-APACHE_FRONTEND_EOF
+APACHE_CONF_EOF
 
-# Enable sites and disable default
-sudo a2ensite byu-590r-backend.conf
-sudo a2ensite byu-590r-frontend.conf
+# Enable site and disable defaults
+sudo a2ensite byu-590r.conf
 sudo a2dissite 000-default
 
-# Add ports to Apache configuration
-echo "Listen 4444" | sudo tee -a /etc/apache2/ports.conf
+# Add port 443 to Apache configuration
 echo "Listen 443" | sudo tee -a /etc/apache2/ports.conf
 
 sudo systemctl reload apache2

@@ -198,8 +198,6 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          # Inject domain into production environment (from GitHub secret API_DOMAIN)
-          sed -i "s|__EC2_HOST__|${{ secrets.API_DOMAIN }}|g" web-app/src/environments/environment.prod.ts
           cd web-app
           npm install
           npm run build
@@ -212,7 +210,7 @@ jobs:
       - name: Verify
         run: |
           sleep 5
-          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "curl -s -o /dev/null -w '%{http_code}' http://localhost/ && echo ' Frontend' && curl -s -o /dev/null -w '%{http_code}' http://localhost:4444/api/hello && echo ' Backend'"
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "curl -sk -o /dev/null -w '%{http_code}' https://localhost/ && echo ' Frontend' && curl -sk -o /dev/null -w '%{http_code}' https://localhost/api/hello && echo ' Backend'"
 
   test-deployment:
     name: Post-deploy tests
@@ -227,8 +225,8 @@ jobs:
       - run: npm install -D @playwright/test @types/node && npx playwright install --with-deps chromium
       - name: Run Playwright
         env:
-          BACKEND_URL: http://${{ secrets.EC2_HOST }}:4444
-          FRONTEND_URL: http://${{ secrets.EC2_HOST }}
+          BACKEND_URL: https://movies.ryanhafen.dev
+          FRONTEND_URL: https://movies.ryanhafen.dev
         run: npx playwright test --reporter=list,html
       - uses: actions/upload-artifact@v4
         if: always()
@@ -244,5 +242,5 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - run: |
-          echo "Frontend http://${{ secrets.EC2_HOST }}"
-          echo "Backend  http://${{ secrets.EC2_HOST }}:4444/api/hello"
+          echo "Frontend https://movies.ryanhafen.dev"
+          echo "Backend  https://movies.ryanhafen.dev/api/hello"
