@@ -1,11 +1,17 @@
 <div class="movies-container">
-  <h2>My Favorite Movies</h2>
+  <div class="movies-header">
+    <h2>My Favorite Movies</h2>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon> Add Movie
+    </button>
+  </div>
   <table class="movies-table">
     <thead>
       <tr>
         <th>Poster</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +26,14 @@
         </td>
         <td class="name-cell">{{ movie.name }}</td>
         <td class="description-cell">{{ movie.description }}</td>
+        <td class="actions-cell">
+          <button mat-icon-button color="primary" (click)="openEditDialog(movie)" title="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteMovie(movie)" title="Delete">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
       }
     </tbody>

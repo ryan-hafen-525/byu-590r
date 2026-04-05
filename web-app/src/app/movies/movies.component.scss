@@ -2,8 +2,15 @@
   padding: 24px;
 
   h2 {
-    margin-bottom: 16px;
+    margin-bottom: 0;
   }
+}
+
+.movies-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .movies-table {

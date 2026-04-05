@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Movie' : 'Add Movie' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+
+    <div style="margin-bottom: 16px;">
+      <label>Poster Image</label><br />
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+
+    @if (imagePreview) {
+      <div style="margin-bottom: 16px;">
+        <img [src]="imagePreview" alt="Preview" style="max-height: 150px; border-radius: 4px;" />
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
+    {{ isEditMode ? 'Update' : 'Create' }}
+  </button>
+</mat-dialog-actions>

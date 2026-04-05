@@ -28,5 +28,20 @@ export const MoviesStore = signalStore(
         moviesList: movies,
       });
     },
+    addMovie(movie: Movie): void {
+      patchState(store, {
+        moviesList: [...store.moviesList(), movie],
+      });
+    },
+    updateMovie(movie: Movie): void {
+      patchState(store, {
+        moviesList: store.moviesList().map((m) => (m.id === movie.id ? movie : m)),
+      });
+    },
+    removeMovie(id: number): void {
+      patchState(store, {
+        moviesList: store.moviesList().filter((m) => m.id !== id),
+      });
+    },
   }))
 );
