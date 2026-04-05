@@ -17,11 +17,6 @@ export class HomeComponent {
   authStore = inject(AuthStore);
   router = inject(Router);
 
-  listOfBooks = [
-    'Harry Potter, J.K. Rowling',
-    'Mistborn, Brandon Sanderson'
-  ];
-
   logout(): void {
     this.authStore.logout();
     this.router.navigate(['/login']);

@@ -20,9 +20,5 @@ class Author extends Model
         return $this->belongsToMany(Phone::class, 'author_phones', 'author_id', 'phone_id');
     }
 
-    public function books(): BelongsToMany
-    {
-        return $this->belongsToMany(Book::class, 'author_books', 'author_id', 'book_id');
-    }
 }
 

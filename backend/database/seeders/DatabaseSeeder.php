@@ -18,10 +18,7 @@ class DatabaseSeeder extends Seeder
             GenreSeeder::class,
             AuthorSeeder::class,
             PhoneSeeder::class,
-            BooksSeeder::class,
             AuthorPhonesSeeder::class,
-            AuthorBooksSeeder::class,
-            PageSeeder::class,
             MoviesSeeder::class,
         ]);
     }

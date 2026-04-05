@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\HelloWorldController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\RegisterController;
@@ -33,12 +32,5 @@ Route::middleware(\App\Http\Middleware\AuthenticateApi::class)->group(function (
         Route::post('user/change_email', 'changeEmail');
     });
 
-    Route::resource('books', BookController::class);
     Route::resource('movies', MovieController::class);
-    Route::controller(BookController::class)->group(function () {
-        Route::post('books/{id}/checkout', 'checkoutBook');
-        Route::patch('books/{id}/return', 'returnBook');
-        Route::post('books/{id}/update_book_picture', 'updateBookPicture');
-        Route::post('send_book_report', 'sendBookReport');
-    });
 });

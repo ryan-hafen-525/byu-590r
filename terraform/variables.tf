@@ -40,30 +40,6 @@ variable "allowed_cidr_blocks" {
   default     = ["0.0.0.0/0"]
 }
 
-variable "book_images_path" {
-  description = "Path to book images directory relative to project root"
-  type        = string
-  default     = "backend/public/assets/books"
-}
-
-variable "book_images" {
-  description = "List of book image files to upload to S3"
-  type        = list(string)
-  default = [
-    "hp1.jpeg",
-    "hp2.jpeg",
-    "hp3.jpeg",
-    "hp4.jpeg",
-    "hp5.jpeg",
-    "hp6.jpeg",
-    "hp7.jpeg",
-    "mb1.jpg",
-    "mb2.jpg",
-    "mb3.jpg",
-    "bom.jpg"
-  ]
-}
-
 # GitHub Actions secrets (optional): when set, Terraform will create/update these repo secrets from AWS outputs
 variable "github_token" {
   description = "GitHub PAT with repo Secrets write; used only to update GitHub Actions secrets (EC2_HOST, S3_BUCKET, etc.). Leave empty to skip."

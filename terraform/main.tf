@@ -132,8 +132,33 @@ MYSQL_EOF
 sudo a2enmod rewrite
 sudo a2enmod headers
 sudo a2enmod ssl
+sudo a2enmod proxy
+sudo a2enmod proxy_http
 
-# Create single virtual host with path-based routing
+# Create internal backend vhost on port 4444
+sudo tee /etc/apache2/sites-available/byu-590r-backend.conf > /dev/null << 'APACHE_BACKEND_EOF'
+<VirtualHost *:4444>
+    ServerName localhost
+    DocumentRoot /var/www/html/api/public
+
+    <Directory /var/www/html/api/public>
+        AllowOverride All
+        Require all granted
+
+        RewriteEngine On
+        RewriteCond %%{REQUEST_FILENAME} !-f
+        RewriteCond %%{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php [QSA,L]
+
+        DirectoryIndex index.php index.html
+    </Directory>
+
+    ErrorLog $${APACHE_LOG_DIR}/byu590r_backend_error.log
+    CustomLog $${APACHE_LOG_DIR}/byu590r_backend_access.log combined
+</VirtualHost>
+APACHE_BACKEND_EOF
+
+# Create frontend vhost with proxy to backend
 sudo tee /etc/apache2/sites-available/byu-590r.conf > /dev/null << 'APACHE_CONF_EOF'
 <VirtualHost *:80>
     ServerName movies.ryanhafen.dev
@@ -147,21 +172,10 @@ sudo tee /etc/apache2/sites-available/byu-590r.conf > /dev/null << 'APACHE_CONF_
     SSLCertificateFile    /etc/ssl/cloudflare-origin.pem
     SSLCertificateKeyFile /etc/ssl/cloudflare-origin-key.pem
 
-    # Serve Laravel API at /api
-    Alias /api /var/www/html/api/public
-
-    <Directory /var/www/html/api/public>
-        AllowOverride All
-        Require all granted
-
-        # Laravel routing
-        RewriteEngine On
-        RewriteCond %%{REQUEST_FILENAME} !-f
-        RewriteCond %%{REQUEST_FILENAME} !-d
-        RewriteRule ^(.*)$ index.php [QSA,L]
-
-        DirectoryIndex index.php index.html
-    </Directory>
+    # Proxy /api requests to internal Laravel vhost on port 4444
+    ProxyPreserveHost On
+    ProxyPass /api http://localhost:4444/api
+    ProxyPassReverse /api http://localhost:4444/api
 
     # Serve Angular frontend at /
     DocumentRoot /var/www/html/app/browser
@@ -170,7 +184,6 @@ sudo tee /etc/apache2/sites-available/byu-590r.conf > /dev/null << 'APACHE_CONF_
         AllowOverride All
         Require all granted
 
-        # Angular routing support (skip /api paths)
         RewriteEngine On
         RewriteRule ^index\.html$ - [L]
         RewriteCond %%{REQUEST_URI} !^/api
@@ -186,11 +199,13 @@ sudo tee /etc/apache2/sites-available/byu-590r.conf > /dev/null << 'APACHE_CONF_
 </VirtualHost>
 APACHE_CONF_EOF
 
-# Enable site and disable defaults
+# Enable sites and disable defaults
+sudo a2ensite byu-590r-backend.conf
 sudo a2ensite byu-590r.conf
 sudo a2dissite 000-default
 
-# Add port 443 to Apache configuration
+# Add ports to Apache configuration
+echo "Listen 4444" | sudo tee -a /etc/apache2/ports.conf
 echo "Listen 443" | sudo tee -a /etc/apache2/ports.conf
 
 sudo systemctl reload apache2
@@ -340,42 +355,3 @@ resource "aws_s3_bucket_public_access_block" "prod" {
   restrict_public_buckets = true
 }
 
-# Book images: upload from backend/public/assets/books to images/ in both dev and prod buckets.
-# Uses placeholder.jpg for any key whose file is missing so production always has all seeded image keys.
-# path.module/.. is repo root when this module lives at <repo>/terraform
-locals {
-  book_images_dir       = abspath("${path.module}/../${var.book_images_path}")
-  book_image_keys       = toset(var.book_images)
-  placeholder_path      = "${local.book_images_dir}/placeholder.jpg"
-  # For each key: use the real file if present, else the committed placeholder image
-  book_image_source = {
-    for f in local.book_image_keys : f =>
-    fileexists("${local.book_images_dir}/${f}") ? "${local.book_images_dir}/${f}" : local.placeholder_path
-  }
-}
-
-# Upload book images to dev bucket (images/hp1.jpeg, images/bom.jpg, etc.)
-resource "aws_s3_object" "dev_book_images" {
-  for_each = local.book_image_keys
-
-  bucket = aws_s3_bucket.dev.id
-  key    = "images/${each.value}"
-  source = local.book_image_source[each.value]
-
-  etag = filemd5(local.book_image_source[each.value])
-
-  depends_on = [aws_s3_bucket.dev]
-}
-
-# Upload book images to prod bucket (images/hp1.jpeg, images/bom.jpg, etc.)
-resource "aws_s3_object" "prod_book_images" {
-  for_each = local.book_image_keys
-
-  bucket = aws_s3_bucket.prod.id
-  key    = "images/${each.value}"
-  source = local.book_image_source[each.value]
-
-  etag = filemd5(local.book_image_source[each.value])
-
-  depends_on = [aws_s3_bucket.prod]
-}
