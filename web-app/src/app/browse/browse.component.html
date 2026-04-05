@@ -1,0 +1,52 @@
+<div class="browse-container">
+  <div class="browse-header">
+    <h2>Browse Media</h2>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon> Add Media
+    </button>
+  </div>
+
+  <div class="filters-row">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput [value]="searchQuery()" (input)="searchQuery.set($any($event.target).value)" (keyup.enter)="onSearch()" placeholder="Search by title..." />
+      <mat-icon matSuffix (click)="onSearch()" style="cursor:pointer">search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Type</mat-label>
+      <mat-select [value]="selectedType()" (selectionChange)="selectedType.set($event.value); onFilterChange()">
+        <mat-option value="">All</mat-option>
+        <mat-option value="movie">Movies</mat-option>
+        <mat-option value="tv_show">TV Shows</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Genre</mat-label>
+      <mat-select [value]="selectedGenre()" (selectionChange)="selectedGenre.set($event.value); onFilterChange()">
+        <mat-option [value]="null">All Genres</mat-option>
+        @for (genre of genres(); track genre.genre_id) {
+          <mat-option [value]="genre.genre_id">{{ genre.genre_name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (media().length === 0) {
+    <div class="empty-state">
+      <mat-icon>movie_filter</mat-icon>
+      <p>No media found. Try adjusting your filters or add some!</p>
+    </div>
+  } @else {
+    <div class="media-grid">
+      @for (item of media(); track item.media_id) {
+        <app-media-card [media]="item"></app-media-card>
+      }
+    </div>
+  }
+</div>

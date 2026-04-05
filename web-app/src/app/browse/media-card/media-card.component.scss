@@ -1,0 +1,113 @@
+@use "../../../assets/styles/colors" as colors;
+@use "../../../assets/styles/spacing" as spacing;
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.media-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.poster-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: spacing.$border-radius-small spacing.$border-radius-small 0 0;
+}
+
+.poster-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: colors.$colors-light-grey;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: colors.$colors-medium-grey;
+  }
+}
+
+.type-badge {
+  position: absolute;
+  top: spacing.$spacing-small;
+  right: spacing.$spacing-small;
+  background-color: colors.$colors-primary;
+  color: colors.$colors-white;
+  padding: 2px 8px;
+  border-radius: spacing.$border-radius-extra-small;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.tv-show {
+    background-color: colors.$colors-accent;
+  }
+}
+
+.media-title {
+  margin: spacing.$spacing-small 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-bottom: 4px;
+
+  .star-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: colors.$colors-medium-grey;
+
+    &.filled {
+      color: colors.$colors-accent;
+    }
+  }
+
+  .rating-text {
+    font-size: 13px;
+    margin-left: 4px;
+    color: colors.$colors-text-secondary;
+  }
+}
+
+.genre-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.genre-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: colors.$colors-light-grey;
+  color: colors.$colors-text-secondary;
+}

@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/browse', pathMatch: 'full' },
   {
     path: 'home',
     loadComponent: () =>
@@ -14,11 +14,23 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./auth/login/login.component').then((m) => m.LoginComponent),
   },
-{
-    path: 'movies',
+  {
+    path: 'browse',
     loadComponent: () =>
-      import('./movies/movies.component').then((m) => m.MoviesComponent),
+      import('./browse/browse.component').then((m) => m.BrowseComponent),
     canActivate: [authGuard],
   },
-  { path: '**', redirectTo: '/login' },
+  {
+    path: 'media/:id',
+    loadComponent: () =>
+      import('./media-detail/media-detail.component').then((m) => m.MediaDetailComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'watchlist',
+    loadComponent: () =>
+      import('./watchlist/watchlist.component').then((m) => m.WatchlistComponent),
+    canActivate: [authGuard],
+  },
+  { path: '**', redirectTo: '/browse' },
 ];

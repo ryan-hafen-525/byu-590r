@@ -2,17 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Genre extends Model
 {
-    use HasFactory;
+    protected $primaryKey = 'genre_id';
 
     protected $fillable = [
-        'name',
-        'description',
-        'world_introduction_date',
+        'genre_name',
     ];
-}
 
+    public function media(): BelongsToMany
+    {
+        return $this->belongsToMany(Media::class, 'media_genre', 'genre_id', 'media_id');
+    }
+}

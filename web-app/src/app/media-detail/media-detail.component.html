@@ -1,0 +1,105 @@
+@if (loading()) {
+  <div class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+} @else if (media()) {
+  <div class="detail-container">
+    <button mat-button (click)="goBack()" class="back-btn">
+      <mat-icon>arrow_back</mat-icon> Back to Browse
+    </button>
+
+    <div class="detail-layout">
+      <div class="poster-col">
+        @if (media()!.poster_url) {
+          <img [src]="media()!.poster_url" [alt]="media()!.title" class="detail-poster" />
+        } @else {
+          <div class="poster-placeholder">
+            <mat-icon>movie</mat-icon>
+          </div>
+        }
+      </div>
+
+      <div class="info-col">
+        <div class="title-row">
+          <h1>{{ media()!.title }}</h1>
+          <span class="type-badge" [class.tv-show]="media()!.media_type === 'tv_show'">
+            {{ media()!.media_type === 'tv_show' ? 'TV Show' : 'Movie' }}
+          </span>
+        </div>
+
+        @if (media()!.avg_rating) {
+          <div class="avg-rating">
+            @for (i of [1,2,3,4,5]; track i) {
+              <mat-icon class="star" [class.filled]="i <= (media()!.avg_rating || 0)">
+                {{ i <= (media()!.avg_rating || 0) ? 'star' : 'star_border' }}
+              </mat-icon>
+            }
+            <span>{{ media()!.avg_rating | number:'1.1-1' }} / 5</span>
+          </div>
+        }
+
+        <div class="genre-chips">
+          @for (genre of media()!.genres; track genre.genre_id) {
+            <span class="genre-chip">{{ genre.genre_name }}</span>
+          }
+        </div>
+
+        @if (media()!.media_type === 'movie' && media()!.movie) {
+          <div class="meta-info">
+            @if (media()!.movie!.release_date) {
+              <span><strong>Release:</strong> {{ media()!.movie!.release_date }}</span>
+            }
+            @if (media()!.movie!.runtime_minutes) {
+              <span><strong>Runtime:</strong> {{ media()!.movie!.runtime_minutes }} min</span>
+            }
+          </div>
+        }
+
+        @if (media()!.synopsis) {
+          <p class="synopsis">{{ media()!.synopsis }}</p>
+        }
+
+        <div class="action-buttons">
+          <button mat-raised-button [color]="isOnWatchlist ? 'accent' : 'primary'" (click)="toggleWatchlist()">
+            <mat-icon>{{ isOnWatchlist ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+            {{ isOnWatchlist ? 'On Watchlist' : 'Add to Watchlist' }}
+          </button>
+          <button mat-button color="primary" (click)="openEditDialog()">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+          <button mat-button color="warn" (click)="deleteMedia()">
+            <mat-icon>delete</mat-icon> Delete
+          </button>
+        </div>
+
+        @if (media()!.media_type === 'tv_show' && media()!.seasons && media()!.seasons!.length > 0) {
+          <div class="seasons-section">
+            <h3>Seasons &amp; Episodes</h3>
+            @for (season of media()!.seasons; track season.season_id) {
+              <div class="season-block">
+                <h4>Season {{ season.season_number }}</h4>
+                @if (season.episodes && season.episodes.length > 0) {
+                  <ul class="episode-list">
+                    @for (ep of season.episodes; track ep.episode_id) {
+                      <li>
+                        <span class="ep-number">E{{ ep.episode_number }}</span>
+                        <span class="ep-title">{{ ep.title }}</span>
+                        @if (ep.runtime_minutes) {
+                          <span class="ep-runtime">{{ ep.runtime_minutes }} min</span>
+                        }
+                      </li>
+                    }
+                  </ul>
+                } @else {
+                  <p class="no-episodes">No episodes yet</p>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-review-section [mediaId]="media()!.media_id" [currentUserId]="currentUserId"></app-review-section>
+  </div>
+}

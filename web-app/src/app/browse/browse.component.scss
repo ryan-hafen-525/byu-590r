@@ -1,0 +1,65 @@
+@use "../../assets/styles/colors" as colors;
+@use "../../assets/styles/spacing" as spacing;
+
+.browse-container {
+  padding: spacing.$spacing-medium;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.browse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: spacing.$spacing-medium;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.filters-row {
+  display: flex;
+  gap: spacing.$spacing-medium;
+  margin-bottom: spacing.$spacing-medium;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-field {
+  min-width: 150px;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: spacing.$spacing-medium;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: spacing.$spacing-large 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: spacing.$spacing-large 0;
+  color: colors.$colors-text-secondary;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: colors.$colors-medium-grey;
+  }
+
+  p {
+    margin-top: spacing.$spacing-medium;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,196 @@
+@use "../../assets/styles/colors" as colors;
+@use "../../assets/styles/spacing" as spacing;
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: spacing.$spacing-large 0;
+}
+
+.detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: spacing.$spacing-medium;
+}
+
+.back-btn {
+  margin-bottom: spacing.$spacing-medium;
+}
+
+.detail-layout {
+  display: flex;
+  gap: spacing.$spacing-medium-large;
+  flex-wrap: wrap;
+}
+
+.poster-col {
+  flex: 0 0 300px;
+}
+
+.detail-poster {
+  width: 100%;
+  border-radius: spacing.$border-radius-small;
+}
+
+.poster-placeholder {
+  width: 100%;
+  aspect-ratio: 2/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: colors.$colors-light-grey;
+  border-radius: spacing.$border-radius-small;
+
+  mat-icon {
+    font-size: 96px;
+    width: 96px;
+    height: 96px;
+    color: colors.$colors-medium-grey;
+  }
+}
+
+.info-col {
+  flex: 1;
+  min-width: 300px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-medium;
+  margin-bottom: spacing.$spacing-small;
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+}
+
+.type-badge {
+  display: inline-block;
+  background-color: colors.$colors-primary;
+  color: colors.$colors-white;
+  padding: 2px 10px;
+  border-radius: spacing.$border-radius-extra-small;
+  font-size: 13px;
+  font-weight: 500;
+
+  &.tv-show {
+    background-color: colors.$colors-accent;
+  }
+}
+
+.avg-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: spacing.$spacing-small;
+
+  .star {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: colors.$colors-medium-grey;
+
+    &.filled {
+      color: colors.$colors-accent;
+    }
+  }
+
+  span {
+    margin-left: spacing.$spacing-small;
+    color: colors.$colors-text-secondary;
+  }
+}
+
+.genre-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacing.$spacing-small;
+  margin-bottom: spacing.$spacing-medium;
+}
+
+.genre-chip {
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background-color: colors.$colors-light-grey;
+  color: colors.$colors-text-secondary;
+}
+
+.meta-info {
+  display: flex;
+  gap: spacing.$spacing-medium;
+  margin-bottom: spacing.$spacing-medium;
+  color: colors.$colors-text-secondary;
+}
+
+.synopsis {
+  line-height: 1.6;
+  color: colors.$colors-text-primary;
+  margin-bottom: spacing.$spacing-medium;
+}
+
+.action-buttons {
+  display: flex;
+  gap: spacing.$spacing-small;
+  flex-wrap: wrap;
+  margin-bottom: spacing.$spacing-medium;
+}
+
+.seasons-section {
+  margin-top: spacing.$spacing-medium;
+
+  h3 {
+    margin-bottom: spacing.$spacing-medium;
+  }
+}
+
+.season-block {
+  margin-bottom: spacing.$spacing-medium;
+  padding: spacing.$spacing-medium;
+  background: colors.$colors-off-white;
+  border-radius: spacing.$border-radius-small;
+
+  h4 {
+    margin: 0 0 spacing.$spacing-small;
+  }
+}
+
+.episode-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    gap: spacing.$spacing-small;
+    padding: spacing.$spacing-small 0;
+    border-bottom: 1px solid colors.$colors-light-grey;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.ep-number {
+  font-weight: 600;
+  color: colors.$colors-primary;
+  min-width: 30px;
+}
+
+.ep-title {
+  flex: 1;
+}
+
+.ep-runtime {
+  color: colors.$colors-text-secondary;
+  font-size: 13px;
+}
+
+.no-episodes {
+  color: colors.$colors-text-secondary;
+  font-style: italic;
+  margin: 0;
+}

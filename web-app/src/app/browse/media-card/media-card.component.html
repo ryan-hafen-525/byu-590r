@@ -1,0 +1,30 @@
+<a [routerLink]="['/media', media.media_id]" class="card-link">
+  <mat-card class="media-card">
+    <div class="poster-container">
+      @if (media.poster_url) {
+        <img [src]="media.poster_url" [alt]="media.title" class="poster-image" />
+      } @else {
+        <div class="poster-placeholder">
+          <mat-icon>movie</mat-icon>
+        </div>
+      }
+      <span class="type-badge" [class.tv-show]="media.media_type === 'tv_show'">{{ typeBadge }}</span>
+    </div>
+    <mat-card-content>
+      <h3 class="media-title">{{ media.title }}</h3>
+      <div class="rating-row">
+        @for (star of ratingStars; track $index) {
+          <mat-icon class="star-icon" [class.filled]="star === 1">{{ star === 1 ? 'star' : 'star_border' }}</mat-icon>
+        }
+        @if (media.avg_rating) {
+          <span class="rating-text">{{ media.avg_rating | number:'1.1-1' }}</span>
+        }
+      </div>
+      <div class="genre-chips">
+        @for (genre of media.genres; track genre.genre_id) {
+          <span class="genre-chip">{{ genre.genre_name }}</span>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</a>

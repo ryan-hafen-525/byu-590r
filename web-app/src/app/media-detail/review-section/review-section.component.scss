@@ -1,0 +1,59 @@
+@use "../../../assets/styles/colors" as colors;
+@use "../../../assets/styles/spacing" as spacing;
+
+.review-section {
+  margin-top: spacing.$spacing-medium-large;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: spacing.$spacing-medium;
+
+  h3 {
+    margin: 0;
+  }
+}
+
+.no-reviews {
+  color: colors.$colors-text-secondary;
+  font-style: italic;
+}
+
+.review-card {
+  background: colors.$colors-off-white;
+  padding: spacing.$spacing-medium;
+  border-radius: spacing.$border-radius-small;
+  margin-bottom: spacing.$spacing-small;
+}
+
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-small;
+
+  strong {
+    margin-right: auto;
+  }
+}
+
+.review-stars {
+  display: flex;
+}
+
+.star-small {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: colors.$colors-medium-grey;
+
+  &.filled {
+    color: colors.$colors-accent;
+  }
+}
+
+.review-text {
+  margin: spacing.$spacing-small 0 0;
+  color: colors.$colors-text-secondary;
+}

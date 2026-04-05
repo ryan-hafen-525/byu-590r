@@ -1,0 +1,52 @@
+@use "../../assets/styles/colors" as colors;
+@use "../../assets/styles/spacing" as spacing;
+
+.watchlist-container {
+  padding: spacing.$spacing-medium;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: spacing.$spacing-medium;
+  }
+}
+
+.watchlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: spacing.$spacing-medium;
+}
+
+.watchlist-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.remove-btn {
+  margin-top: spacing.$spacing-small;
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: spacing.$spacing-large 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: spacing.$spacing-large 0;
+  color: colors.$colors-text-secondary;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: colors.$colors-medium-grey;
+  }
+
+  p {
+    margin: spacing.$spacing-medium 0;
+    font-size: 16px;
+  }
+}

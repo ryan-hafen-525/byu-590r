@@ -1,0 +1,28 @@
+<div class="watchlist-container">
+  <h2>My Watchlist</h2>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  } @else if (items().length === 0) {
+    <div class="empty-state">
+      <mat-icon>bookmark_border</mat-icon>
+      <p>Your watchlist is empty. Browse media to add some!</p>
+      <a mat-raised-button color="primary" routerLink="/browse">Browse Media</a>
+    </div>
+  } @else {
+    <div class="watchlist-grid">
+      @for (item of items(); track item.watchlist_id) {
+        @if (item.media) {
+          <div class="watchlist-item">
+            <app-media-card [media]="item.media"></app-media-card>
+            <button mat-button color="warn" class="remove-btn" (click)="removeItem(item)">
+              <mat-icon>close</mat-icon> Remove
+            </button>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

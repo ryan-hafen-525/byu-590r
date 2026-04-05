@@ -1,0 +1,60 @@
+<div class="manager">
+  <div class="manager-header">
+    <h4>Seasons &amp; Episodes</h4>
+    <button mat-raised-button color="primary" (click)="addSeason()" type="button">
+      <mat-icon>add</mat-icon> Add Season
+    </button>
+  </div>
+
+  @for (season of seasons; track season.season_id) {
+    <div class="season-block">
+      <div class="season-header">
+        <strong>Season {{ season.season_number }}</strong>
+        <button mat-icon-button color="warn" (click)="removeSeason(season)" type="button" title="Remove season">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+      @if (season.episodes && season.episodes.length > 0) {
+        @for (ep of season.episodes; track ep.episode_id) {
+          <div class="episode-row">
+            <span>E{{ ep.episode_number }} - {{ ep.title }}</span>
+            @if (ep.runtime_minutes) {
+              <span class="ep-runtime">{{ ep.runtime_minutes }} min</span>
+            }
+            <button mat-icon-button color="warn" (click)="removeEpisode(season, ep)" type="button">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        }
+      }
+
+      @if (newEpisode[season.season_id]) {
+        <div class="add-episode-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput [(ngModel)]="newEpisode[season.season_id].title" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="small-field">
+            <mat-label>Ep #</mat-label>
+            <input matInput type="number" [(ngModel)]="newEpisode[season.season_id].episode_number" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="small-field">
+            <mat-label>Minutes</mat-label>
+            <input matInput type="number" [(ngModel)]="newEpisode[season.season_id].runtime_minutes" />
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addEpisode(season)" type="button" [disabled]="!newEpisode[season.season_id].title">Save</button>
+          <button mat-button (click)="newEpisode[season.season_id] = undefined!" type="button">Cancel</button>
+        </div>
+      } @else {
+        <button mat-button color="primary" (click)="initNewEpisode(season.season_id)" type="button">
+          <mat-icon>add</mat-icon> Add Episode
+        </button>
+      }
+    </div>
+  }
+
+  @if (seasons.length === 0) {
+    <p class="empty-msg">No seasons yet. Add one to get started.</p>
+  }
+</div>

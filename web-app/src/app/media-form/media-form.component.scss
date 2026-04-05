@@ -1,0 +1,45 @@
+@use "../../assets/styles/colors" as colors;
+@use "../../assets/styles/spacing" as spacing;
+
+.media-form {
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-small;
+  min-width: 400px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.movie-fields {
+  display: flex;
+  gap: spacing.$spacing-medium;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.image-upload {
+  margin-top: spacing.$spacing-small;
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: spacing.$spacing-small;
+  }
+
+  input[type="file"] {
+    margin-top: spacing.$spacing-small;
+  }
+}
+
+.image-preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: spacing.$border-radius-small;
+  object-fit: cover;
+  display: block;
+  margin-bottom: spacing.$spacing-small;
+}

@@ -1,0 +1,34 @@
+@use "../../../assets/styles/colors" as colors;
+@use "../../../assets/styles/spacing" as spacing;
+
+.star-selector {
+  margin-bottom: spacing.$spacing-medium;
+
+  label {
+    display: block;
+    margin-bottom: spacing.$spacing-small;
+    font-weight: 500;
+  }
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star-btn {
+  cursor: pointer;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: colors.$colors-medium-grey;
+  transition: color 0.15s;
+
+  &.filled {
+    color: colors.$colors-accent;
+  }
+}
+
+.full-width {
+  width: 100%;
+}

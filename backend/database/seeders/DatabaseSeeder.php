@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             AuthorSeeder::class,
             PhoneSeeder::class,
             AuthorPhonesSeeder::class,
-            MoviesSeeder::class,
         ]);
     }
 }

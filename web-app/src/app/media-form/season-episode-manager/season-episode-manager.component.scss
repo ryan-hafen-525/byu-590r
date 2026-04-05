@@ -1,0 +1,69 @@
+@use "../../../assets/styles/colors" as colors;
+@use "../../../assets/styles/spacing" as spacing;
+
+.manager {
+  margin-top: spacing.$spacing-medium;
+}
+
+.manager-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: spacing.$spacing-small;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.season-block {
+  border: 1px solid colors.$colors-light-grey;
+  border-radius: spacing.$border-radius-small;
+  padding: spacing.$spacing-medium;
+  margin-bottom: spacing.$spacing-small;
+}
+
+.season-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: spacing.$spacing-small;
+}
+
+.episode-row {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-small;
+  padding: 4px 0;
+
+  span:first-child {
+    flex: 1;
+  }
+}
+
+.ep-runtime {
+  color: colors.$colors-text-secondary;
+  font-size: 13px;
+}
+
+.add-episode-form {
+  display: flex;
+  gap: spacing.$spacing-small;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: spacing.$spacing-small;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 100px;
+  }
+}
+
+.small-field {
+  max-width: 80px;
+}
+
+.empty-msg {
+  color: colors.$colors-text-secondary;
+  font-style: italic;
+}

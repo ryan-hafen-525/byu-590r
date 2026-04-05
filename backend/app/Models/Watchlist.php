@@ -5,25 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Movie extends Model
+class Watchlist extends Model
 {
-    protected $primaryKey = 'movie_id';
+    protected $primaryKey = 'watchlist_id';
+    public $timestamps = false;
 
     protected $fillable = [
         'media_id',
-        'release_date',
-        'runtime_minutes',
+        'user_id',
+        'added_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'release_date' => 'date',
+            'added_at' => 'datetime',
         ];
     }
 
     public function media(): BelongsTo
     {
         return $this->belongsTo(Media::class, 'media_id', 'media_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
