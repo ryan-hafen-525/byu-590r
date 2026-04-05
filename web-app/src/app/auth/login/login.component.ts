@@ -1,4 +1,4 @@
-import { Component, inject, signal, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -36,9 +36,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements AfterViewInit {
-  @ViewChild('bgVideo') bgVideo!: ElementRef<HTMLVideoElement>;
-
+export class LoginComponent {
   private authService = inject(AuthService);
   private authStore = inject(AuthStore);
   private router = inject(Router);
@@ -56,11 +54,6 @@ export class LoginComponent implements AfterViewInit {
   registerDialog = signal(false);
   submitForgotPasswordLoading = signal(false);
   registerFormIsLoading = signal(false);
-
-  ngAfterViewInit(): void {
-    this.bgVideo.nativeElement.muted = true;
-    this.bgVideo.nativeElement.play().catch(() => {});
-  }
 
   constructor() {
     this.loginForm = this.fb.group({

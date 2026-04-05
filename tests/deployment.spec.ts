@@ -38,7 +38,7 @@ test.describe("Deployment Verification", () => {
 		});
 	});
 
-	test('Frontend login page should have "Login" text', async ({
+	test('Frontend login page should have "Ryan\'s Movie Database" text', async ({
 		page,
 	}: {
 		page: Page;
@@ -49,10 +49,10 @@ test.describe("Deployment Verification", () => {
 		// Wait for the page to load
 		await page.waitForLoadState("networkidle");
 
-		// Check for "Login" text in the card title
+		// Check for "Ryan's Movie Database" text in the card title
 		const loginTitle = page
 			.locator("mat-card-title")
-			.getByText("Login", { exact: true });
+			.getByText("Ryan's Movie Database", { exact: true });
 		await expect(loginTitle).toBeVisible({ timeout: 10000 });
 
 		// Also check for the button with "Login" text
