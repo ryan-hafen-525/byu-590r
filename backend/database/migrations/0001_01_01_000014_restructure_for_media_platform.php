@@ -8,9 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Drop old tables
+        // Disable FK checks so we can drop tables that may be referenced by others
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('books');
+        Schema::dropIfExists('author_phones');
+        Schema::dropIfExists('phones');
+        Schema::dropIfExists('authors');
         Schema::dropIfExists('movies');
         Schema::dropIfExists('genres');
+        Schema::enableForeignKeyConstraints();
 
         // Media supertype
         Schema::create('media', function (Blueprint $table) {
