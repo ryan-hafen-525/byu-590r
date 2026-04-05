@@ -5,10 +5,18 @@
 >
   @if (isAuthenticated) {
   <mat-toolbar color="primary" class="app-bar">
+    <div class="brand">
+      <mat-icon class="brand-icon">theaters</mat-icon>
+      <span class="brand-name">CineVault</span>
+    </div>
     <span class="app-bar-spacer"></span>
     <div class="nav-buttons">
-      <a mat-button routerLink="/browse" routerLinkActive="active">Browse</a>
-      <a mat-button routerLink="/watchlist" routerLinkActive="active">Watchlist</a>
+      <a mat-button routerLink="/browse" routerLinkActive="active">
+        <mat-icon>explore</mat-icon> Browse
+      </a>
+      <a mat-button routerLink="/watchlist" routerLinkActive="active">
+        <mat-icon>bookmark</mat-icon> Watchlist
+      </a>
     </div>
 
     <button

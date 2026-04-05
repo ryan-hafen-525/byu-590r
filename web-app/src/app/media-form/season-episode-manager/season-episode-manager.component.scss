@@ -13,14 +13,16 @@
 
   h4 {
     margin: 0;
+    color: colors.$colors-text-primary;
   }
 }
 
 .season-block {
-  border: 1px solid colors.$colors-light-grey;
+  border: 1px solid colors.$colors-border;
   border-radius: spacing.$border-radius-small;
   padding: spacing.$spacing-medium;
   margin-bottom: spacing.$spacing-small;
+  background: colors.$colors-dark-card;
 }
 
 .season-header {
@@ -28,6 +30,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: spacing.$spacing-small;
+
+  strong {
+    color: colors.$colors-accent;
+  }
 }
 
 .episode-row {
@@ -38,6 +44,7 @@
 
   span:first-child {
     flex: 1;
+    color: colors.$colors-text-primary;
   }
 }
 

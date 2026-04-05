@@ -10,11 +10,12 @@
 .detail-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: spacing.$spacing-medium;
+  padding: spacing.$spacing-medium-large spacing.$spacing-medium;
 }
 
 .back-btn {
   margin-bottom: spacing.$spacing-medium;
+  color: colors.$colors-text-secondary !important;
 }
 
 .detail-layout {
@@ -30,6 +31,7 @@
 .detail-poster {
   width: 100%;
   border-radius: spacing.$border-radius-small;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .poster-placeholder {
@@ -38,14 +40,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: colors.$colors-light-grey;
+  background: linear-gradient(135deg, colors.$colors-dark-surface, colors.$colors-dark-card);
   border-radius: spacing.$border-radius-small;
+  border: 1px solid colors.$colors-border;
 
   mat-icon {
     font-size: 96px;
     width: 96px;
     height: 96px;
-    color: colors.$colors-medium-grey;
+    color: colors.$colors-dark-grey;
   }
 }
 
@@ -62,21 +65,26 @@
 
   h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 32px;
+    font-weight: 700;
+    color: colors.$colors-white;
   }
 }
 
 .type-badge {
   display: inline-block;
-  background-color: colors.$colors-primary;
+  background-color: colors.$colors-primary-light;
   color: colors.$colors-white;
-  padding: 2px 10px;
+  padding: 3px 12px;
   border-radius: spacing.$border-radius-extra-small;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
   &.tv-show {
     background-color: colors.$colors-accent;
+    color: colors.$colors-black;
   }
 }
 
@@ -84,13 +92,13 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  margin-bottom: spacing.$spacing-small;
+  margin-bottom: spacing.$spacing-medium;
 
   .star {
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-    color: colors.$colors-medium-grey;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    color: colors.$colors-dark-grey;
 
     &.filled {
       color: colors.$colors-accent;
@@ -99,7 +107,9 @@
 
   span {
     margin-left: spacing.$spacing-small;
-    color: colors.$colors-text-secondary;
+    color: colors.$colors-accent;
+    font-weight: 600;
+    font-size: 16px;
   }
 }
 
@@ -112,23 +122,29 @@
 
 .genre-chip {
   font-size: 13px;
-  padding: 4px 12px;
+  padding: 4px 14px;
   border-radius: 16px;
-  background-color: colors.$colors-light-grey;
+  background-color: rgba(255, 255, 255, 0.06);
   color: colors.$colors-text-secondary;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .meta-info {
   display: flex;
-  gap: spacing.$spacing-medium;
+  gap: spacing.$spacing-medium-large;
   margin-bottom: spacing.$spacing-medium;
   color: colors.$colors-text-secondary;
+
+  strong {
+    color: colors.$colors-text-primary;
+  }
 }
 
 .synopsis {
-  line-height: 1.6;
-  color: colors.$colors-text-primary;
+  line-height: 1.7;
+  color: colors.$colors-text-secondary;
   margin-bottom: spacing.$spacing-medium;
+  font-size: 15px;
 }
 
 .action-buttons {
@@ -139,21 +155,25 @@
 }
 
 .seasons-section {
-  margin-top: spacing.$spacing-medium;
+  margin-top: spacing.$spacing-medium-large;
 
   h3 {
     margin-bottom: spacing.$spacing-medium;
+    color: colors.$colors-text-primary;
   }
 }
 
 .season-block {
   margin-bottom: spacing.$spacing-medium;
   padding: spacing.$spacing-medium;
-  background: colors.$colors-off-white;
+  background: colors.$colors-dark-card;
   border-radius: spacing.$border-radius-small;
+  border: 1px solid colors.$colors-border;
 
   h4 {
     margin: 0 0 spacing.$spacing-small;
+    color: colors.$colors-accent;
+    font-weight: 600;
   }
 }
 
@@ -166,7 +186,7 @@
     display: flex;
     gap: spacing.$spacing-small;
     padding: spacing.$spacing-small 0;
-    border-bottom: 1px solid colors.$colors-light-grey;
+    border-bottom: 1px solid colors.$colors-border;
 
     &:last-child {
       border-bottom: none;
@@ -176,12 +196,13 @@
 
 .ep-number {
   font-weight: 600;
-  color: colors.$colors-primary;
+  color: colors.$colors-accent;
   min-width: 30px;
 }
 
 .ep-title {
   flex: 1;
+  color: colors.$colors-text-primary;
 }
 
 .ep-runtime {

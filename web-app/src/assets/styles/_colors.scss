@@ -1,36 +1,41 @@
-// Primary colors - Accessible blue palette
-$colors-primary: #1976d2;
-$colors-primary-dark: #1565c0;
-$colors-primary-light: #42a5f5;
+// Primary colors - Deep cinematic palette
+$colors-primary: #0d253f;
+$colors-primary-dark: #091b2e;
+$colors-primary-light: #1a3a5c;
 
 // Secondary colors
-$colors-secondary: #424242;
-$colors-accent: #ff6f00;
+$colors-secondary: #1c1c2e;
+$colors-accent: #f5c518;          // IMDb gold for stars and highlights
 
-// Neutral colors - High contrast for accessibility
+// Neutral colors
 $colors-white: #ffffff;
-$colors-off-white: #fafafa;
-$colors-light-grey: #e0e0e0;
-$colors-medium-grey: #9e9e9e;
-$colors-dark-grey: #616161;
-$colors-charcoal: #212121;
+$colors-off-white: #f0f0f0;
+$colors-light-grey: #d1d5db;
+$colors-medium-grey: #6b7280;
+$colors-dark-grey: #374151;
+$colors-charcoal: #1f2937;
 $colors-black: #000000;
 
+// Dark surface tones
+$colors-dark-surface: #1a1a2e;
+$colors-dark-card: #16213e;
+$colors-dark-hover: #1f2b47;
+
 // Semantic colors
-$colors-success: #2e7d32;
-$colors-warning: #f57c00;
-$colors-error: #d32f2f;
-$colors-info: #0288d1;
+$colors-success: #10b981;
+$colors-warning: #f59e0b;
+$colors-error: #ef4444;
+$colors-info: #3b82f6;
 
-// Background and text - High contrast combinations
-$colors-background: $colors-off-white;
-$colors-surface: $colors-white;
-$colors-text-primary: $colors-charcoal;
-$colors-text-secondary: $colors-dark-grey;
-$colors-border: $colors-light-grey;
-$colors-divider: $colors-light-grey;
+// Background and text
+$colors-background: #0f0f1a;
+$colors-surface: $colors-dark-surface;
+$colors-text-primary: #e5e7eb;
+$colors-text-secondary: #9ca3af;
+$colors-border: #374151;
+$colors-divider: #374151;
 
-// Legacy support (mapped to new colors for backward compatibility)
+// Legacy support
 $colors-ui-white: $colors-white;
 $colors-ui-black: $colors-charcoal;
 $colors-ui-grey: $colors-dark-grey;

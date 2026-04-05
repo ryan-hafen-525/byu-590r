@@ -3,6 +3,8 @@
 
 .review-section {
   margin-top: spacing.$spacing-medium-large;
+  padding-top: spacing.$spacing-medium-large;
+  border-top: 1px solid colors.$colors-border;
 }
 
 .review-header {
@@ -13,6 +15,8 @@
 
   h3 {
     margin: 0;
+    color: colors.$colors-text-primary;
+    font-size: 20px;
   }
 }
 
@@ -22,10 +26,11 @@
 }
 
 .review-card {
-  background: colors.$colors-off-white;
+  background: colors.$colors-dark-card;
   padding: spacing.$spacing-medium;
   border-radius: spacing.$border-radius-small;
   margin-bottom: spacing.$spacing-small;
+  border: 1px solid colors.$colors-border;
 }
 
 .review-top {
@@ -35,6 +40,7 @@
 
   strong {
     margin-right: auto;
+    color: colors.$colors-text-primary;
   }
 }
 
@@ -46,7 +52,7 @@
   font-size: 16px;
   width: 16px;
   height: 16px;
-  color: colors.$colors-medium-grey;
+  color: colors.$colors-dark-grey;
 
   &.filled {
     color: colors.$colors-accent;
@@ -56,4 +62,5 @@
 .review-text {
   margin: spacing.$spacing-small 0 0;
   color: colors.$colors-text-secondary;
+  line-height: 1.6;
 }

@@ -13,9 +13,30 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: colors.$colors-primary !important;
+  background: linear-gradient(135deg, colors.$colors-primary 0%, colors.$colors-secondary 100%) !important;
   color: colors.$colors-white !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-small;
+}
+
+.brand-icon {
+  color: colors.$colors-accent;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.brand-name {
+  font-size: fonts.$font-size-xl;
+  font-weight: fonts.$font-weight-bold;
+  letter-spacing: 1px;
+  color: colors.$colors-accent;
 }
 
 .app-bar-spacer {
@@ -27,18 +48,29 @@
   gap: spacing.$spacing-small;
 
   a {
-    color: colors.$colors-white !important;
+    color: colors.$colors-text-secondary !important;
     text-decoration: none;
     padding: spacing.$spacing-extra-small spacing.$spacing-small;
     border-radius: spacing.$border-radius-extra-small;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      color: colors.$colors-white !important;
+      background-color: rgba(255, 255, 255, 0.08);
     }
 
     &.active {
-      background-color: colors.$colors-primary-dark;
+      color: colors.$colors-accent !important;
+      background-color: rgba(245, 197, 24, 0.1);
       font-weight: fonts.$font-weight-medium;
     }
   }
@@ -50,10 +82,11 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid rgba(245, 197, 24, 0.3);
   }
 
   mat-icon {
-    color: colors.$colors-white;
+    color: colors.$colors-text-secondary;
     font-size: 40px;
     width: 40px;
     height: 40px;
@@ -77,7 +110,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -90,7 +123,8 @@
   max-width: 500px;
   background-color: colors.$colors-surface;
   border-radius: spacing.$border-radius-medium;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  border: 1px solid colors.$colors-border;
 }
 
 .modal-content {
@@ -166,7 +200,7 @@
 }
 
 .alert-success {
-  background-color: rgba(46, 125, 50, 0.15);
+  background-color: rgba(16, 185, 129, 0.15);
   color: colors.$colors-success;
   border: 1px solid colors.$colors-success;
   border-radius: spacing.$border-radius-small;
@@ -176,6 +210,7 @@
   .mat-mdc-dialog-container {
     background-color: colors.$colors-surface !important;
     color: colors.$colors-text-primary !important;
+    border: 1px solid colors.$colors-border;
   }
 
   .mat-mdc-dialog-title {
@@ -184,8 +219,9 @@
   }
 
   .mat-mdc-menu-panel {
-    background-color: colors.$colors-surface !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: colors.$colors-dark-card !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border: 1px solid colors.$colors-border;
   }
 
   .mat-mdc-menu-item {
@@ -193,7 +229,7 @@
     @include fonts.fonts-body;
 
     &:hover {
-      background-color: colors.$colors-light-grey !important;
+      background-color: colors.$colors-dark-hover !important;
     }
   }
 
@@ -201,7 +237,7 @@
     width: 100%;
 
     .mat-mdc-text-field-wrapper {
-      background-color: colors.$colors-white;
+      background-color: colors.$colors-dark-card;
     }
 
     .mat-mdc-form-field-label {

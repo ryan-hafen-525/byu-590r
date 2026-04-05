@@ -2,7 +2,7 @@
 @use "../../assets/styles/spacing" as spacing;
 
 .browse-container {
-  padding: spacing.$spacing-medium;
+  padding: spacing.$spacing-medium-large spacing.$spacing-medium;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -15,14 +15,21 @@
 
   h2 {
     margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: colors.$colors-text-primary;
   }
 }
 
 .filters-row {
   display: flex;
   gap: spacing.$spacing-medium;
-  margin-bottom: spacing.$spacing-medium;
+  margin-bottom: spacing.$spacing-medium-large;
   flex-wrap: wrap;
+  padding: spacing.$spacing-medium;
+  background-color: colors.$colors-dark-card;
+  border-radius: spacing.$border-radius-small;
+  border: 1px solid colors.$colors-border;
 }
 
 .search-field {
@@ -36,7 +43,7 @@
 
 .media-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: spacing.$spacing-medium;
 }
 
@@ -52,10 +59,10 @@
   color: colors.$colors-text-secondary;
 
   mat-icon {
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
-    color: colors.$colors-medium-grey;
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: colors.$colors-dark-grey;
   }
 
   p {

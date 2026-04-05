@@ -8,6 +8,7 @@
     display: block;
     margin-bottom: spacing.$spacing-small;
     font-weight: 500;
+    color: colors.$colors-text-secondary;
   }
 }
 
@@ -18,14 +19,18 @@
 
 .star-btn {
   cursor: pointer;
-  font-size: 32px;
-  width: 32px;
-  height: 32px;
-  color: colors.$colors-medium-grey;
-  transition: color 0.15s;
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: colors.$colors-dark-grey;
+  transition: color 0.15s, transform 0.15s;
 
   &.filled {
     color: colors.$colors-accent;
+  }
+
+  &:hover {
+    transform: scale(1.15);
   }
 }
 

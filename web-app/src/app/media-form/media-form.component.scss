@@ -23,15 +23,21 @@
 
 .image-upload {
   margin-top: spacing.$spacing-small;
+  padding: spacing.$spacing-medium;
+  background: colors.$colors-dark-card;
+  border-radius: spacing.$border-radius-small;
+  border: 1px dashed colors.$colors-border;
 
   label {
     display: block;
     font-weight: 500;
     margin-bottom: spacing.$spacing-small;
+    color: colors.$colors-text-secondary;
   }
 
   input[type="file"] {
     margin-top: spacing.$spacing-small;
+    color: colors.$colors-text-secondary;
   }
 }
 
@@ -42,4 +48,5 @@
   object-fit: cover;
   display: block;
   margin-bottom: spacing.$spacing-small;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
