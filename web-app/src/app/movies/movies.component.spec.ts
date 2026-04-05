@@ -76,7 +76,7 @@ describe('MoviesComponent', () => {
     const img = fixture.nativeElement.querySelector('img.movie-poster');
     expect(img).toBeNull();
 
-    const icon = fixture.nativeElement.querySelector('mat-icon');
+    const icon = fixture.nativeElement.querySelector('.poster-cell mat-icon');
     expect(icon).toBeTruthy();
     expect(icon.textContent).toContain('movie');
   });
