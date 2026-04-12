@@ -30,8 +30,6 @@ start:
 	cd backend && docker compose exec -T app php artisan package:discover || true
 	@echo "Running database migrations and seeding..."
 	@$(MAKE) migrate
-	@echo "Setting up demo book images for local storage..."
-	cd backend && docker compose exec -T app php artisan app:setup-demo-images
 	@echo "Clearing all caches after migrations..."
 	cd backend && docker compose exec -T app php artisan optimize:clear || true
 	@echo "Detecting environment..."

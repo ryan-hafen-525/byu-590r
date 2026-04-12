@@ -190,6 +190,14 @@ jobs:
             (grep -q '^AWS_DEFAULT_REGION=' .env && sed -i 's/^AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${{ secrets.AWS_REGION }}/' .env || echo 'AWS_DEFAULT_REGION=${{ secrets.AWS_REGION }}' >> .env); \
             ([ -z '${{ secrets.APP_DEBUG }}' ] || (grep -q '^APP_DEBUG=' .env && sed -i 's/^APP_DEBUG=.*/APP_DEBUG=${{ secrets.APP_DEBUG }}/' .env || echo 'APP_DEBUG=${{ secrets.APP_DEBUG }}' >> .env)); \
             ([ -z '${{ secrets.OPENAI_API_KEY }}' ] || (grep -q '^OPENAI_API_KEY=' .env && sed -i 's|^OPENAI_API_KEY=.*|OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}|' .env || echo 'OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_MAILER=' .env && sed -i 's|^MAIL_MAILER=.*|MAIL_MAILER=smtp|' .env || echo 'MAIL_MAILER=smtp' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_HOST=' .env && sed -i 's|^MAIL_HOST=.*|MAIL_HOST=smtp.gmail.com|' .env || echo 'MAIL_HOST=smtp.gmail.com' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_PORT=' .env && sed -i 's|^MAIL_PORT=.*|MAIL_PORT=587|' .env || echo 'MAIL_PORT=587' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_ENCRYPTION=' .env && sed -i 's|^MAIL_ENCRYPTION=.*|MAIL_ENCRYPTION=tls|' .env || echo 'MAIL_ENCRYPTION=tls' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_USERNAME=' .env && sed -i 's|^MAIL_USERNAME=.*|MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}|' .env || echo 'MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}' >> .env)); \
+            ([ -z '${{ secrets.MAIL_PASSWORD }}' ] || (grep -q '^MAIL_PASSWORD=' .env && sed -i 's|^MAIL_PASSWORD=.*|MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}|' .env || echo 'MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_FROM_ADDRESS=' .env && sed -i 's|^MAIL_FROM_ADDRESS=.*|MAIL_FROM_ADDRESS=${{ secrets.MAIL_USERNAME }}|' .env || echo 'MAIL_FROM_ADDRESS=${{ secrets.MAIL_USERNAME }}' >> .env)); \
+            ([ -z '${{ secrets.MAIL_USERNAME }}' ] || (grep -q '^MAIL_FROM_NAME=' .env && sed -i 's|^MAIL_FROM_NAME=.*|MAIL_FROM_NAME=\"BYU 590R Monorepo\"|' .env || echo 'MAIL_FROM_NAME=\"BYU 590R Monorepo\"' >> .env)); \
             true"
 
       - name: Migrate and restart backend
