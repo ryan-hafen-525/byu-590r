@@ -12,6 +12,20 @@
   width: 100%;
 }
 
+.synopsis-field {
+  display: flex;
+  align-items: flex-start;
+  gap: spacing.$spacing-small;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  .generate-synopsis-btn {
+    margin-top: 8px;
+  }
+}
+
 .movie-fields {
   display: flex;
   gap: spacing.$spacing-medium;

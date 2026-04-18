@@ -16,16 +16,37 @@ class OpenAIService
     }
 
     /**
-     * Placeholder method for OpenAI integration
-     * Replace this with your actual OpenAI service implementation
+     * Generate a synopsis for a movie or TV show using OpenAI.
      */
-    public function placeholder(): array
+    public function generateSynopsis(string $title, string $mediaType): string
     {
-        return [
-            'message' => 'OpenAI service placeholder - implement your OpenAI integration here',
-            'status' => 'placeholder',
-            'api_key_configured' => !empty($this->apiKey)
-        ];
+        $typeLabel = $mediaType === 'tv_show' ? 'TV show' : 'movie';
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $this->apiKey,
+            'Content-Type' => 'application/json',
+        ])->post($this->baseUrl . '/chat/completions', [
+            'model' => 'gpt-4o-mini',
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You are a helpful assistant that writes concise synopses for movies and TV shows. Write 2-3 sentences only. Do not include the title in your response.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => "Write a synopsis for the {$typeLabel} titled \"{$title}\".",
+                ],
+            ],
+            'max_tokens' => 200,
+            'temperature' => 0.7,
+        ]);
+
+        if ($response->failed()) {
+            Log::error('OpenAI API error', ['status' => $response->status(), 'body' => $response->body()]);
+            throw new \Exception('Failed to generate synopsis from OpenAI.');
+        }
+
+        return $response->json('choices.0.message.content', '');
     }
 
     /**

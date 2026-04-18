@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Media;
 use App\Models\Movie;
+use App\Services\OpenAIService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -159,6 +160,27 @@ class MediaController extends BaseController
         $media->poster_url = $this->getS3Url($media->poster_url);
 
         return $this->sendResponse($media, 'Media updated successfully.');
+    }
+
+    public function generateSynopsis(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'media_type' => 'required|in:movie,tv_show',
+        ]);
+
+        $openAI = new OpenAIService();
+
+        if (!$openAI->isConfigured()) {
+            return $this->sendError('OpenAI API key is not configured.', [], 500);
+        }
+
+        try {
+            $synopsis = $openAI->generateSynopsis($request->title, $request->media_type);
+            return $this->sendResponse(['synopsis' => $synopsis], 'Synopsis generated successfully.');
+        } catch (\Exception $e) {
+            return $this->sendError('Failed to generate synopsis: ' . $e->getMessage(), [], 500);
+        }
     }
 
     public function destroy($id)

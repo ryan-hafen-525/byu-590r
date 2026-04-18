@@ -53,7 +53,6 @@ export class AppComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
 
-  theme = signal<'light' | 'dark'>('dark');
   profileDialog = signal(false);
   profileIsUploading = signal(false);
   verificationEmailLoading = signal(false);
@@ -111,10 +110,6 @@ export class AppComponent implements OnInit {
   get title() {
     const userName = this.authStore.userName();
     return userName ? `Welcome ${userName}!` : 'Welcome!';
-  }
-
-  changeTheme(): void {
-    this.theme.set(this.theme() === 'light' ? 'dark' : 'light');
   }
 
   logout(): void {

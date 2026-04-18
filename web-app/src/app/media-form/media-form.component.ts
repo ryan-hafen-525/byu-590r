@@ -7,7 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Media, Genre } from '../core/models/media.models';
+import { MediaService } from '../core/services/media.service';
 import { SeasonEpisodeManagerComponent } from './season-episode-manager/season-episode-manager.component';
 
 export interface MediaFormDialogData {
@@ -27,6 +30,8 @@ export interface MediaFormDialogData {
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
     SeasonEpisodeManagerComponent,
   ],
   templateUrl: './media-form.component.html',
@@ -35,12 +40,14 @@ export interface MediaFormDialogData {
 export class MediaFormComponent {
   private fb = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<MediaFormComponent>);
+  private mediaService = inject(MediaService);
   data: MediaFormDialogData = inject(MAT_DIALOG_DATA, { optional: true }) || { genres: [] };
 
   form: FormGroup;
   selectedFile: File | null = null;
   imagePreview: string | null = null;
   isEditMode: boolean;
+  generatingSynopsis = signal(false);
 
   constructor() {
     const m = this.data.media;
@@ -74,6 +81,23 @@ export class MediaFormComponent {
       };
       reader.readAsDataURL(this.selectedFile);
     }
+  }
+
+  onGenerateSynopsis(): void {
+    const title = this.form.get('title')?.value;
+    const mediaType = this.form.get('media_type')?.value;
+    if (!title) return;
+
+    this.generatingSynopsis.set(true);
+    this.mediaService.generateSynopsis(title, mediaType).subscribe({
+      next: (res) => {
+        this.form.patchValue({ synopsis: res.results.synopsis });
+        this.generatingSynopsis.set(false);
+      },
+      error: () => {
+        this.generatingSynopsis.set(false);
+      },
+    });
   }
 
   onSubmit(): void {

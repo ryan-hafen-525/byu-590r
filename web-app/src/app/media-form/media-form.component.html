@@ -6,10 +6,25 @@
       <input matInput formControlName="title" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Synopsis</mat-label>
-      <textarea matInput formControlName="synopsis" rows="3"></textarea>
-    </mat-form-field>
+    <div class="synopsis-field">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Synopsis</mat-label>
+        <textarea matInput formControlName="synopsis" rows="3"></textarea>
+      </mat-form-field>
+      <button
+        mat-icon-button
+        type="button"
+        class="generate-synopsis-btn"
+        (click)="onGenerateSynopsis()"
+        [disabled]="!form.get('title')?.value || generatingSynopsis()"
+        matTooltip="Auto-generate synopsis with AI">
+        @if (generatingSynopsis()) {
+          <mat-spinner diameter="20"></mat-spinner>
+        } @else {
+          <mat-icon>auto_awesome</mat-icon>
+        }
+      </button>
+    </div>
 
     @if (!isEditMode) {
       <mat-form-field appearance="outline" class="full-width">

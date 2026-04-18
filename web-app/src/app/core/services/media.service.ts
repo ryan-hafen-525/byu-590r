@@ -92,6 +92,14 @@ export class MediaService {
     );
   }
 
+  generateSynopsis(title: string, mediaType: string): Observable<ApiResponse<{ synopsis: string }>> {
+    return this.http.post<ApiResponse<{ synopsis: string }>>(
+      `${this.apiUrl}media/generate-synopsis`,
+      { title, media_type: mediaType },
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
   deleteMedia(id: number): Observable<ApiResponse<null>> {
     return this.http.delete<ApiResponse<null>>(
       `${this.apiUrl}media/${id}`,

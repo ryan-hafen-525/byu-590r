@@ -41,6 +41,7 @@ Route::middleware(\App\Http\Middleware\AuthenticateApi::class)->group(function (
     Route::get('genres', [GenreController::class, 'index']);
 
     // Media CRUD
+    Route::post('media/generate-synopsis', [MediaController::class, 'generateSynopsis']);
     Route::get('media', [MediaController::class, 'index']);
     Route::get('media/{id}', [MediaController::class, 'show']);
     Route::post('media', [MediaController::class, 'store']);

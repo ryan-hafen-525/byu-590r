@@ -1,8 +1,4 @@
-<div
-  class="app-container"
-  [class.theme-dark]="theme() === 'dark'"
-  [class.theme-light]="theme() === 'light'"
->
+<div class="app-container">
   @if (isAuthenticated) {
   <mat-toolbar color="primary" class="app-bar">
     <div class="brand">
@@ -36,12 +32,6 @@
         <h3>{{ profile().name }}</h3>
       </div>
       <mat-divider></mat-divider>
-      <button mat-menu-item (click)="changeTheme()">
-        <mat-icon>{{
-          theme() === "light" ? "dark_mode" : "light_mode"
-        }}</mat-icon>
-        <span>Toggle Theme</span>
-      </button>
       <button mat-menu-item (click)="openProfileDialog()">
         <mat-icon>person</mat-icon>
         <span>Profile</span>
