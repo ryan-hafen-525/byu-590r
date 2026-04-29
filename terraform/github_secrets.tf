@@ -4,6 +4,7 @@
 
 provider "github" {
   token = var.github_token
+  owner = split("/", var.github_repository)[0]
 }
 
 resource "github_actions_secret" "ec2_host" {
